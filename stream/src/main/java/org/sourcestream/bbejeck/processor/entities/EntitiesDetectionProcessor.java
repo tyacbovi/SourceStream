@@ -15,6 +15,7 @@ public class EntitiesDetectionProcessor implements Processor<String,EntityReport
     {
     	this.sourceName = sourceName;
     }
+    
     @Override
     public void process(String key, EntityReport value) {
     	
@@ -23,7 +24,7 @@ public class EntitiesDetectionProcessor implements Processor<String,EntityReport
     		detectionEvent event = new detectionEvent();
     		event.setSourceName(sourceName);
     		event.setExternalSystemID(value.getId());
-	        context.forward(key, value);
+	        context.forward(key, event);
 	        context.commit();
     	}
     }

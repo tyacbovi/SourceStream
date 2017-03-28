@@ -1,18 +1,18 @@
 package org.sourcestream.bbejeck.model;
 
 public class EntityReport {
-	private String id;
-	private Double lat;
-	private Double xlong;
-	private String source_name;
-	private String category;
-	private Double speed;
-	private Double course;
-	private Double elevation;
-	private String nationality;
-	private String picture_url;
-	private Double height;
-	private String nickname;
+	public String id;
+	public Double lat;
+	public Double xlong;
+	public String source_name;
+	public String category;
+	public Double speed;
+	public Double course;
+	public Double elevation;
+	public String nationality;
+	public String picture_url;
+	public Double height;
+	public String nickname;
 	
 	public String getId()
 	{

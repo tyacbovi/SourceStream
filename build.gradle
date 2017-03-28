@@ -1,16 +1,24 @@
-buildscript {
-    repositories {
-        mavenCentral()
-	    maven {
-			url "http://packages.confluent.io/maven/"
-		}
-		maven {
-            url "https://plugins.gradle.org/m2/"
-        }
+repositories {
+    mavenCentral()
+    maven {
+		url "http://packages.confluent.io/maven/"
+	}
+	maven {
+        url "https://plugins.gradle.org/m2/"
     }
 }
 
-//apply plugin: 'application'
+apply plugin: 'application'
+
+mainClassName = 'sourcestream.Main'
+
+jar {
+  archiveName='source-stream.jar'
+}
+
+dependencies {
+	compile project(':stream')
+}
 
 subprojects {
 
@@ -23,10 +31,6 @@ repositories {
     maven {
 		url "http://packages.confluent.io/maven/"
 	}
-}
-
-jar {
-  archiveName='source-stream.jar'
 }
 
 ext.kafkaVersion = '0.10.2.0'

@@ -5,12 +5,6 @@ import org.apache.kafka.common.serialization.Deserializer;
 
 import java.util.Map;
 
-/**
- * User: Bill Bejeck
- * Date: 2/14/16
- * Time: 3:26 PM
- */
-
 public class JsonDeserializer<T> implements Deserializer<T> {
 
     private Gson gson = new Gson();
