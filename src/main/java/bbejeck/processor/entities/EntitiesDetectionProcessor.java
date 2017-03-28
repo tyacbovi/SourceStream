@@ -3,12 +3,12 @@ package bbejeck.processor.entities;
 import org.apache.kafka.streams.processor.Processor;
 import org.apache.kafka.streams.processor.ProcessorContext;
 import org.apache.kafka.streams.state.KeyValueStore;
+import bbejeck.model.EntityReport;
+import generated.detectionEvent;
 
-import bbejeck.schema.*;
-
-public class EntitiesDetectionProcessor implements Processor<String,detectionEvent> {
+public class EntitiesDetectionProcessor implements Processor<String,EntityReport> {
 	private ProcessorContext context;
-    private KeyValueStore<String, detectionEvent> state;
+    private KeyValueStore<String, EntityReport> state;
     private String sourceName;
 	
     public EntitiesDetectionProcessor(String sourceName)
@@ -16,11 +16,14 @@ public class EntitiesDetectionProcessor implements Processor<String,detectionEve
     	this.sourceName = sourceName;
     }
     @Override
-    public void process(String key, detectionEvent value) {
+    public void process(String key, EntityReport value) {
     	
     	if (state.get(key) == null)
+    	{
+    		detectionEvent event;
 	        context.forward(key, value);
 	        context.commit();
+    	}
     }
 	
     /** Initializes the state store with the name `type` + "_store", where
@@ -34,7 +37,7 @@ public class EntitiesDetectionProcessor implements Processor<String,detectionEve
         
         this.context = context;
 
-        state = (KeyValueStore<String, detectionEvent>) context.getStateStore(sourceName + "-store");
+        state = (KeyValueStore<String, EntityReport>) context.getStateStore(sourceName + "-store");
     
     } // Close init.
     

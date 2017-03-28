@@ -1,8 +1,5 @@
 package bbejeck.model;
 
-import java.util.Date;
-import java.util.Objects;
-
 public class EntityReport {
 	private String id;
 	private Double lat;

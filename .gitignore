@@ -111,3 +111,5 @@ local.properties
 .scala_dependencies
 .worksheet
 # Created by .ignore support plugin (hsz.mobi)
+
+generated/

@@ -23,7 +23,7 @@ task runPurchaseStreams(type: JavaExec){
 
 task generateAvro(type: com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
     source("src/main/resources/avro")
-    outputDir = file("generated/avro")
+    outputDir = file("src/main/java/generated")
     doLast {
     fileTree(generateAvro.outputDir).visit {it.directory || ext.dependencySources.add(it.relativePath.pathString)}
   }
@@ -32,7 +32,7 @@ task generateAvro(type: com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask)
 generateAvro.ext.dependencySources = []
 compileJava.dependsOn(generateAvro)
 
-mainClassName = "bbejeck.streams.purchases.PurchaseKafkaStreamsDriver"
+mainClassName = "bbejeck.streams.entities.EntityReportKafkaStream"
 
 jar {
   archiveName='source-stream.jar'

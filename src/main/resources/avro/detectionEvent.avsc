@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "detectionEvent",
+  "name": "generated.detectionEvent",
   "doc": "This is a schema for entity detection report event",
   "fields": [
 	{

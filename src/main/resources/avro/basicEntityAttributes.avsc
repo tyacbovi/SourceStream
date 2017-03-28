@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "basicEntityAttributes",
+  "name": "generated.basicEntityAttributes",
   "doc": "This is a schema for basic entity attributes, this will represent basic entity in all life cycle",
   "fields": [
 	{

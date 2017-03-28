@@ -1,4 +1,4 @@
-package bbejeck.streams.Entities;
+package bbejeck.streams.entities;
 
 import bbejeck.model.EntityReport;
 import bbejeck.processor.entities.EntitiesDetectionProcessor;
@@ -9,7 +9,6 @@ import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.processor.TopologyBuilder;
-import org.apache.kafka.streams.kstream.KStreamBuilder;
 import org.apache.kafka.streams.processor.WallclockTimestampExtractor;
 import org.apache.kafka.streams.processor.StateStoreSupplier;
 import org.apache.kafka.streams.state.Stores;
