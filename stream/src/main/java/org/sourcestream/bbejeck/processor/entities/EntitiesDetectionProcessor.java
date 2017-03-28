@@ -1,10 +1,10 @@
-package bbejeck.processor.entities;
+package org.sourcestream.bbejeck.processor.entities;
 
 import org.apache.kafka.streams.processor.Processor;
 import org.apache.kafka.streams.processor.ProcessorContext;
 import org.apache.kafka.streams.state.KeyValueStore;
-import bbejeck.model.EntityReport;
-import generated.detectionEvent;
+import org.sourcestream.bbejeck.model.EntityReport;
+import org.sourcestream.entities.detectionEvent;
 
 public class EntitiesDetectionProcessor implements Processor<String,EntityReport> {
 	private ProcessorContext context;
@@ -20,7 +20,9 @@ public class EntitiesDetectionProcessor implements Processor<String,EntityReport
     	
     	if (state.get(key) == null)
     	{
-    		detectionEvent event;
+    		detectionEvent event = new detectionEvent();
+    		event.setSourceName(sourceName);
+    		event.setExternalSystemID(value.getId());
 	        context.forward(key, value);
 	        context.commit();
     	}

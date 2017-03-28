@@ -1,4 +1,4 @@
-package bbejeck.model;
+package org.sourcestream.bbejeck.model;
 
 public class EntityReport {
 	private String id;
@@ -13,6 +13,11 @@ public class EntityReport {
 	private String picture_url;
 	private Double height;
 	private String nickname;
+	
+	public String getId()
+	{
+		return id;
+	}
 	
 	private EntityReport(Builder builder) {
         id = builder.id;

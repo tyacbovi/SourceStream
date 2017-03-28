@@ -1,37 +1,22 @@
-buildscript {
-    repositories {
-        mavenCentral()
-	    maven {
-			url "http://packages.confluent.io/maven/"
-		}
-		maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-}
-
-//apply plugin: 'application'
-
-subprojects {
-
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'eclipse'
 
-repositories {
-    mavenCentral()
-    maven {
-		url "http://packages.confluent.io/maven/"
-	}
+jar {
+  baseName='stream'
 }
 
-jar {
-  archiveName='source-stream.jar'
+repositories {
+     mavenCentral()
+     maven {
+		url "http://packages.confluent.io/maven/"
+	}
 }
 
 ext.kafkaVersion = '0.10.2.0'
 
 dependencies {
+	compile project(':generated_entities')
     compile group: 'com.google.code.gson', name: 'gson', version:'2.6.1'
     compile group: 'org.apache.commons', name:'commons-lang3', version:'3.4'
     compile group: 'org.apache.kafka', name: 'kafka-clients', version: kafkaVersion
@@ -44,9 +29,3 @@ dependencies {
 	compile "io.confluent:kafka-schema-registry:3.2.0"
 	compile "io.confluent:common:3.2.0"
 }
-}
-
-task bootRunAll(dependsOn: [
-        ':generated_entities:bootRun',
-        ':stream:bootRun'
-]) {}

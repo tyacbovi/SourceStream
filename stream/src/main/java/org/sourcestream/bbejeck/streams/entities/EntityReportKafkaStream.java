@@ -1,9 +1,9 @@
-package bbejeck.streams.entities;
+package org.sourcestream.bbejeck.streams.entities;
 
-import bbejeck.model.EntityReport;
-import bbejeck.processor.entities.EntitiesDetectionProcessor;
-import bbejeck.serializer.JsonDeserializer;
-import bbejeck.serializer.JsonSerializer;
+import org.sourcestream.bbejeck.model.EntityReport;
+import org.sourcestream.bbejeck.processor.entities.EntitiesDetectionProcessor;
+import org.sourcestream.bbejeck.serializer.JsonDeserializer;
+import org.sourcestream.bbejeck.serializer.JsonSerializer;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
