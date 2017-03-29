@@ -37,12 +37,17 @@ public class EntityReportKafkaStream {
 	private Properties kafkaProperties;
 	private String schemaRegistryIP;
 	private String NOTVALID = "NOTVALID";
+	private String kafkaIP;
 	
-	public EntityReportKafkaStream(String sourceName, Map<String, String> externalProperties)
+	public EntityReportKafkaStream(Map<String, String> externalProperties)
 	{
-		this.sourceName = sourceName;
-		this.kafkaProperties = getProperties(externalProperties, this.sourceName);
+		this.sourceName = System.getenv().getOrDefault("SOURCE_NAME", "defualt");
+		this.kafkaIP = externalProperties.getOrDefault("KAFKA_ADDRESS", "localhost:9092");
+		this.kafkaProperties = getProperties(this.kafkaIP, this.sourceName);
 		this.schemaRegistryIP = externalProperties.getOrDefault("SCHEMA_REGISTRY_IP", NOTVALID);
+		
+		System.out.println("Stream started with :\nsource-name:" + this.sourceName + "\nSchema registry url:" + this.schemaRegistryIP +"\n" +
+							"Kafka ip:" + this.kafkaIP + "\n");
 	}
 	
 	public void run ()
@@ -53,8 +58,6 @@ public class EntityReportKafkaStream {
         JsonSerializer<EntityReport> entityReportJsonSerializer = new JsonSerializer<>();
         
         Serde<EntityReport> entityReportSerde = Serdes.serdeFrom(entityReportJsonSerializer,entityReportJsonDeserializer);
-        Serde<String> stringSerde = Serdes.String();
-        
 
         // Create the state stores. We need one for each of the
         // MessageProcessor's in the topology.
@@ -108,7 +111,6 @@ public class EntityReportKafkaStream {
 	              kafkaAvroSerializer,
 	              "data-processor");
         
-        System.out.println("Starting " + sourceName + " flow");
         KafkaStreams kafkaStreams = new KafkaStreams(builder,streamsConfig);
         
         //Will close the stream at system shutdown
@@ -122,12 +124,12 @@ public class EntityReportKafkaStream {
         kafkaStreams.start();
 	}
 	
-	private static Properties getProperties(Map<String, String> externalProperties, String sourceName) {
+	private static Properties getProperties(String kafkaIP, String sourceName) {
         Properties props = new Properties();
-        props.put(StreamsConfig.CLIENT_ID_CONFIG, "Source-Stream");
+        props.put(StreamsConfig.CLIENT_ID_CONFIG, sourceName + "-stream");
         props.put("group.id", "source-stream");
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, sourceName + "-stream");
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, externalProperties.getOrDefault("KAFKA_ADDRESS", "localhost:9092"));
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaIP);
         props.put(StreamsConfig.REPLICATION_FACTOR_CONFIG, 1);
         props.put(StreamsConfig.TIMESTAMP_EXTRACTOR_CLASS_CONFIG, WallclockTimestampExtractor.class);
         return props;
