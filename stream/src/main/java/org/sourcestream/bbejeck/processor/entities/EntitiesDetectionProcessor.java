@@ -38,27 +38,20 @@ public class EntitiesDetectionProcessor implements Processor<String,EntityReport
     		System.out.println("updated target " + value.id);
     	}
     }
-	
-    /** Initializes the state store with the name `type` + "_store", where
-     * `type` is the type specified in the constructor.
-     *
-     * {@inheritDoc}
-     */
+    
     @Override
     @SuppressWarnings("unchecked")
     public void init(ProcessorContext context) {
         
         this.context = context;
-        this.context.schedule(1000);
+        this.context.schedule(10);
 
         state = (KeyValueStore<String, EntityReport>) context.getStateStore(sourceName + "-store");
         Objects.requireNonNull(state, "State store can't be null");
-    
     } // Close init.
     
 	@Override
 	public void punctuate(long timestamp) {
-		System.out.println(timestamp);
 	}
 	
 	@Override

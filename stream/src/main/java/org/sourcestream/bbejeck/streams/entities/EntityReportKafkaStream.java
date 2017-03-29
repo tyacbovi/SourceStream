@@ -17,26 +17,37 @@ import org.sourcestream.bbejeck.processor.entities.EntitiesDetectionProcessor;
 import org.sourcestream.bbejeck.processor.entities.JsonDetectionReportToSystemRport;
 import org.sourcestream.bbejeck.serializer.JsonDeserializer;
 import org.sourcestream.bbejeck.serializer.JsonSerializer;
+
 import org.sourcestream.entities.detectionEvent;
+import org.sourcestream.entities.category;
+import org.sourcestream.entities.coordinate;
+import org.sourcestream.entities.basicEntityAttributes;
+import org.sourcestream.entities.generalEntityAttributes;
+import org.sourcestream.entities.nationality;
 
 import io.confluent.kafka.schemaregistry.client.rest.exceptions.RestClientException;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import io.confluent.kafka.schemaregistry.client.MockSchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
+import io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient;
+
 
 public class EntityReportKafkaStream {
 	private String sourceName;
-	private Properties properties;
+	private Properties kafkaProperties;
+	private String schemaRegistryIP;
+	private String NOTVALID = "NOTVALID";
 	
 	public EntityReportKafkaStream(String sourceName, Map<String, String> externalProperties)
 	{
 		this.sourceName = sourceName;
-		this.properties = getProperties(externalProperties, this.sourceName);
+		this.kafkaProperties = getProperties(externalProperties, this.sourceName);
+		this.schemaRegistryIP = externalProperties.getOrDefault("SCHEMA_REGISTRY_IP", NOTVALID);
 	}
 	
 	public void run ()
 	{
-		StreamsConfig streamsConfig = new StreamsConfig(this.properties);
+		StreamsConfig streamsConfig = new StreamsConfig(this.kafkaProperties);
 		
 		JsonDeserializer<EntityReport> entityReportJsonDeserializer = new JsonDeserializer<>(EntityReport.class);
         JsonSerializer<EntityReport> entityReportJsonSerializer = new JsonSerializer<>();
@@ -55,10 +66,20 @@ public class EntityReportKafkaStream {
                   .build();
         
         
-        SchemaRegistryClient schema = new MockSchemaRegistryClient();
-        KafkaAvroSerializer kafkaAvroSerializer = new KafkaAvroSerializer(schema); //TODO
+        SchemaRegistryClient schema;
+        if (schemaRegistryIP == NOTVALID)
+        	schema = new MockSchemaRegistryClient();
+        else
+        	schema = new CachedSchemaRegistryClient(this.schemaRegistryIP, 2410);
+        
+        KafkaAvroSerializer kafkaAvroSerializer = new KafkaAvroSerializer(schema);
         try {
 			kafkaAvroSerializer.register(detectionEvent.getClassSchema().getFullName(), detectionEvent.getClassSchema());
+			kafkaAvroSerializer.register(category.getClassSchema().getFullName(), category.getClassSchema());
+			kafkaAvroSerializer.register(basicEntityAttributes.getClassSchema().getFullName(), basicEntityAttributes.getClassSchema());
+			kafkaAvroSerializer.register(generalEntityAttributes.getClassSchema().getFullName(), generalEntityAttributes.getClassSchema());
+			kafkaAvroSerializer.register(nationality.getClassSchema().getFullName(), nationality.getClassSchema());
+			kafkaAvroSerializer.register(coordinate.getClassSchema().getFullName(), coordinate.getClassSchema());
 		} catch (IOException | RestClientException e) {
 			e.printStackTrace();
 		}
