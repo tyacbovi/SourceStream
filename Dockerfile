@@ -2,7 +2,7 @@ FROM openjdk:8-alpine
 
 WORKDIR /usr/local/
 
-ADD https://github.com/tyacbovi/SourceStream/releases/download/0.1/source-stream.tar .
+ADD https://github.com/tyacbovi/SourceStream/releases/download/0.11/source-stream.tar .
 RUN tar -xvf source-stream.tar
 
 ENV KAFKA_ADDRESS "localhost:9092"
