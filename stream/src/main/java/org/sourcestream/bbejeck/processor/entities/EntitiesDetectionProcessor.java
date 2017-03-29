@@ -21,15 +21,21 @@ public class EntitiesDetectionProcessor implements Processor<String,EntityReport
     
     @Override
     public void process(String key, EntityReport value) {
-    	System.out.println("value is " + value.id);
     	if (state.get(value.id) == null)
     	{
     		System.out.println("new target " + value.id);
+    		
     		detectionEvent event = new detectionEvent();
     		event.setSourceName(sourceName);
     		event.setExternalSystemID(value.getId());
-	        context.forward(key, event);
+	        
+    		context.forward(key, event);
 	        context.commit();
+	        state.put(value.id, value);
+    	}
+    	else
+    	{
+    		System.out.println("updated target " + value.id);
     	}
     }
 	
