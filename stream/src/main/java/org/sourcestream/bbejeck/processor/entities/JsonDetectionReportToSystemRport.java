@@ -29,26 +29,26 @@ public class JsonDetectionReportToSystemRport implements Processor<String,Entity
 
 	@Override
 	public void process(String key, EntityReport value) {
-		generalEntityAttributes entity = new generalEntityAttributes();
-		basicEntityAttributes basicEntity = new basicEntityAttributes();
-		coordinate location = new coordinate();
+		coordinate location = coordinate.newBuilder().setLat(value.lat)
+		.setLong$(value.xlong)
+		.build();
 		
-		location.newBuilder().setLat(value.lat)
-		.setLong$(value.xlong);
-		basicEntity.newBuilder().setCoordinate(location)
+		basicEntityAttributes basicEntity = basicEntityAttributes.newBuilder().setCoordinate(location)
 		.setEntityOffset(0)
-		.setIsNotTracked(false);
+		.setIsNotTracked(false)
+		.build();
 		
-		entity.newBuilder().setCategory(category.valueOf(value.category))
+		generalEntityAttributes entity = generalEntityAttributes.newBuilder().setCategory(category.valueOf(value.category))
 		.setCourse(value.course)
 		.setElevation(value.course)
 		.setExternalSystemID(value.id)
 		.setHeight(value.height)
-		.setNationality(nationality.valueOf(value.nationality))
+		.setNationality(nationality.valueOf(value.nationality.toUpperCase()))
 		.setNickname(value.nickname)
 		.setPictureURL(value.picture_url)
 		.setSpeed(value.speed)
-		.setBasicAttributes(basicEntity);
+		.setBasicAttributes(basicEntity)
+		.build();
 		
 		context.forward(key, entity);
         context.commit();

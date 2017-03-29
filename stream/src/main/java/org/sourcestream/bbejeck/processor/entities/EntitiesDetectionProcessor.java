@@ -2,9 +2,12 @@ package org.sourcestream.bbejeck.processor.entities;
 
 import org.apache.kafka.streams.processor.Processor;
 import org.apache.kafka.streams.processor.ProcessorContext;
+import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.KeyValueStore;
 import org.sourcestream.bbejeck.model.EntityReport;
 import org.sourcestream.entities.detectionEvent;
+
+import java.util.Objects;
 
 public class EntitiesDetectionProcessor implements Processor<String,EntityReport> {
 	private ProcessorContext context;
@@ -18,9 +21,10 @@ public class EntitiesDetectionProcessor implements Processor<String,EntityReport
     
     @Override
     public void process(String key, EntityReport value) {
-    	
-    	if (state.get(key) == null)
+    	System.out.println("value is " + value.id);
+    	if (state.get(value.id) == null)
     	{
+    		System.out.println("new target " + value.id);
     		detectionEvent event = new detectionEvent();
     		event.setSourceName(sourceName);
     		event.setExternalSystemID(value.getId());
@@ -39,16 +43,20 @@ public class EntitiesDetectionProcessor implements Processor<String,EntityReport
     public void init(ProcessorContext context) {
         
         this.context = context;
+        this.context.schedule(1000);
 
         state = (KeyValueStore<String, EntityReport>) context.getStateStore(sourceName + "-store");
+        Objects.requireNonNull(state, "State store can't be null");
     
     } // Close init.
     
 	@Override
-	public void punctuate(long timestamp) {	
+	public void punctuate(long timestamp) {
+		System.out.println(timestamp);
 	}
 	
 	@Override
 	public void close() {
+		state.close();
 	}
 }

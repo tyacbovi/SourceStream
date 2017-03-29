@@ -21,6 +21,8 @@ import org.sourcestream.entities.detectionEvent;
 
 import io.confluent.kafka.schemaregistry.client.rest.exceptions.RestClientException;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
+import io.confluent.kafka.schemaregistry.client.MockSchemaRegistryClient;
+import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
 
 public class EntityReportKafkaStream {
 	private String sourceName;
@@ -29,7 +31,7 @@ public class EntityReportKafkaStream {
 	public EntityReportKafkaStream(String sourceName, Map<String, String> externalProperties)
 	{
 		this.sourceName = sourceName;
-		this.properties = getProperties(externalProperties);
+		this.properties = getProperties(externalProperties, this.sourceName);
 	}
 	
 	public void run ()
@@ -48,11 +50,13 @@ public class EntityReportKafkaStream {
         StateStoreSupplier sourceEntitiesStore = 
             Stores.create(sourceName + "-store")
                   .withStringKeys()
-                  .withDoubleValues()
+                  .withValues(entityReportSerde)
                   .inMemory()
                   .build();
         
-        KafkaAvroSerializer kafkaAvroSerializer = new KafkaAvroSerializer(); //TODO
+        
+        SchemaRegistryClient schema = new MockSchemaRegistryClient();
+        KafkaAvroSerializer kafkaAvroSerializer = new KafkaAvroSerializer(schema); //TODO
         try {
 			kafkaAvroSerializer.register(detectionEvent.getClassSchema().getFullName(), detectionEvent.getClassSchema());
 		} catch (IOException | RestClientException e) {
@@ -64,7 +68,7 @@ public class EntityReportKafkaStream {
         builder.addSource("messages-source",
                 Serdes.String().deserializer(),
                 entityReportJsonDeserializer,
-                sourceName + "raw-data")
+                sourceName + "-raw-data")
 	     .addProcessor("detection-processor",
 	                   () -> new EntitiesDetectionProcessor(sourceName),
 	                   "messages-source")
@@ -95,14 +99,13 @@ public class EntityReportKafkaStream {
         });
         
         kafkaStreams.start();
-        System.out.println("Now started PurchaseStreams Example");
 	}
 	
-	private static Properties getProperties(Map<String, String> externalProperties) {
+	private static Properties getProperties(Map<String, String> externalProperties, String sourceName) {
         Properties props = new Properties();
         props.put(StreamsConfig.CLIENT_ID_CONFIG, "Source-Stream");
         props.put("group.id", "source-stream");
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "<source-name>-stream"); //TODO: get source name from CLI
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, sourceName + "-stream");
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, externalProperties.getOrDefault("KAFKA_ADDRESS", "localhost:9092"));
         props.put(StreamsConfig.REPLICATION_FACTOR_CONFIG, 1);
         props.put(StreamsConfig.TIMESTAMP_EXTRACTOR_CLASS_CONFIG, WallclockTimestampExtractor.class);
