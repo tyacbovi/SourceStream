@@ -19,5 +19,5 @@ spec:
           value: kafka.kafka:9092
         - name: SCHEMA_REGISTRY_IP
           value: http://schema-registry.kafka:8081
-	- name: SOURCE_NAME
-	  value: source1
+        - name: SOURCE_NAME
+          value: source1
