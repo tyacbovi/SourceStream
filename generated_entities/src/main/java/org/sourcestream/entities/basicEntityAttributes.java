@@ -11,12 +11,13 @@ import org.apache.avro.specific.SpecificData;
 /** This is a schema for basic entity attributes, this will represent basic entity in all life cycle */
 @org.apache.avro.specific.AvroGenerated
 public class basicEntityAttributes extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -9148817540169616942L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"basicEntityAttributes\",\"namespace\":\"org.sourcestream.entities\",\"doc\":\"This is a schema for basic entity attributes, this will represent basic entity in all life cycle\",\"fields\":[{\"name\":\"coordinate\",\"type\":{\"type\":\"record\",\"name\":\"coordinate\",\"doc\":\"Location attribute in grid format\",\"fields\":[{\"name\":\"lat\",\"type\":\"double\"},{\"name\":\"long\",\"type\":\"double\"}]}},{\"name\":\"isNotTracked\",\"type\":\"boolean\"},{\"name\":\"entityOffset\",\"type\":\"long\"}]}");
+  private static final long serialVersionUID = -1596432073799569111L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"basicEntityAttributes\",\"namespace\":\"org.sourcestream.entities\",\"doc\":\"This is a schema for basic entity attributes, this will represent basic entity in all life cycle\",\"fields\":[{\"name\":\"coordinate\",\"type\":{\"type\":\"record\",\"name\":\"coordinate\",\"doc\":\"Location attribute in grid format\",\"fields\":[{\"name\":\"lat\",\"type\":\"double\"},{\"name\":\"long\",\"type\":\"double\"}]}},{\"name\":\"isNotTracked\",\"type\":\"boolean\"},{\"name\":\"entityOffset\",\"type\":\"long\"},{\"name\":\"sourceName\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   @Deprecated public org.sourcestream.entities.coordinate coordinate;
   @Deprecated public boolean isNotTracked;
   @Deprecated public long entityOffset;
+  @Deprecated public java.lang.String sourceName;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -30,11 +31,13 @@ public class basicEntityAttributes extends org.apache.avro.specific.SpecificReco
    * @param coordinate The new value for coordinate
    * @param isNotTracked The new value for isNotTracked
    * @param entityOffset The new value for entityOffset
+   * @param sourceName The new value for sourceName
    */
-  public basicEntityAttributes(org.sourcestream.entities.coordinate coordinate, java.lang.Boolean isNotTracked, java.lang.Long entityOffset) {
+  public basicEntityAttributes(org.sourcestream.entities.coordinate coordinate, java.lang.Boolean isNotTracked, java.lang.Long entityOffset, java.lang.String sourceName) {
     this.coordinate = coordinate;
     this.isNotTracked = isNotTracked;
     this.entityOffset = entityOffset;
+    this.sourceName = sourceName;
   }
 
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
@@ -44,6 +47,7 @@ public class basicEntityAttributes extends org.apache.avro.specific.SpecificReco
     case 0: return coordinate;
     case 1: return isNotTracked;
     case 2: return entityOffset;
+    case 3: return sourceName;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -55,6 +59,7 @@ public class basicEntityAttributes extends org.apache.avro.specific.SpecificReco
     case 0: coordinate = (org.sourcestream.entities.coordinate)value$; break;
     case 1: isNotTracked = (java.lang.Boolean)value$; break;
     case 2: entityOffset = (java.lang.Long)value$; break;
+    case 3: sourceName = (java.lang.String)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -108,6 +113,22 @@ public class basicEntityAttributes extends org.apache.avro.specific.SpecificReco
   }
 
   /**
+   * Gets the value of the 'sourceName' field.
+   * @return The value of the 'sourceName' field.
+   */
+  public java.lang.String getSourceName() {
+    return sourceName;
+  }
+
+  /**
+   * Sets the value of the 'sourceName' field.
+   * @param value the value to set.
+   */
+  public void setSourceName(java.lang.String value) {
+    this.sourceName = value;
+  }
+
+  /**
    * Creates a new basicEntityAttributes RecordBuilder.
    * @return A new basicEntityAttributes RecordBuilder
    */
@@ -143,6 +164,7 @@ public class basicEntityAttributes extends org.apache.avro.specific.SpecificReco
     private org.sourcestream.entities.coordinate.Builder coordinateBuilder;
     private boolean isNotTracked;
     private long entityOffset;
+    private java.lang.String sourceName;
 
     /** Creates a new Builder */
     private Builder() {
@@ -170,6 +192,10 @@ public class basicEntityAttributes extends org.apache.avro.specific.SpecificReco
         this.entityOffset = data().deepCopy(fields()[2].schema(), other.entityOffset);
         fieldSetFlags()[2] = true;
       }
+      if (isValidValue(fields()[3], other.sourceName)) {
+        this.sourceName = data().deepCopy(fields()[3].schema(), other.sourceName);
+        fieldSetFlags()[3] = true;
+      }
     }
 
     /**
@@ -190,6 +216,10 @@ public class basicEntityAttributes extends org.apache.avro.specific.SpecificReco
       if (isValidValue(fields()[2], other.entityOffset)) {
         this.entityOffset = data().deepCopy(fields()[2].schema(), other.entityOffset);
         fieldSetFlags()[2] = true;
+      }
+      if (isValidValue(fields()[3], other.sourceName)) {
+        this.sourceName = data().deepCopy(fields()[3].schema(), other.sourceName);
+        fieldSetFlags()[3] = true;
       }
     }
 
@@ -343,6 +373,45 @@ public class basicEntityAttributes extends org.apache.avro.specific.SpecificReco
       return this;
     }
 
+    /**
+      * Gets the value of the 'sourceName' field.
+      * @return The value.
+      */
+    public java.lang.String getSourceName() {
+      return sourceName;
+    }
+
+    /**
+      * Sets the value of the 'sourceName' field.
+      * @param value The value of 'sourceName'.
+      * @return This builder.
+      */
+    public org.sourcestream.entities.basicEntityAttributes.Builder setSourceName(java.lang.String value) {
+      validate(fields()[3], value);
+      this.sourceName = value;
+      fieldSetFlags()[3] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'sourceName' field has been set.
+      * @return True if the 'sourceName' field has been set, false otherwise.
+      */
+    public boolean hasSourceName() {
+      return fieldSetFlags()[3];
+    }
+
+
+    /**
+      * Clears the value of the 'sourceName' field.
+      * @return This builder.
+      */
+    public org.sourcestream.entities.basicEntityAttributes.Builder clearSourceName() {
+      sourceName = null;
+      fieldSetFlags()[3] = false;
+      return this;
+    }
+
     @Override
     public basicEntityAttributes build() {
       try {
@@ -354,6 +423,7 @@ public class basicEntityAttributes extends org.apache.avro.specific.SpecificReco
         }
         record.isNotTracked = fieldSetFlags()[1] ? this.isNotTracked : (java.lang.Boolean) defaultValue(fields()[1]);
         record.entityOffset = fieldSetFlags()[2] ? this.entityOffset : (java.lang.Long) defaultValue(fields()[2]);
+        record.sourceName = fieldSetFlags()[3] ? this.sourceName : (java.lang.String) defaultValue(fields()[3]);
         return record;
       } catch (Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);
