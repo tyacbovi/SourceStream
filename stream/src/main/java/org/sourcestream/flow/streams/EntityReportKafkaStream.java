@@ -1,4 +1,4 @@
-package org.sourcestream.bbejeck.streams.entities;
+package org.sourcestream.flow.streams;
 
 import java.io.IOException;
 import java.util.Map;
@@ -12,11 +12,11 @@ import org.apache.kafka.streams.processor.StateStoreSupplier;
 import org.apache.kafka.streams.processor.TopologyBuilder;
 import org.apache.kafka.streams.processor.WallclockTimestampExtractor;
 import org.apache.kafka.streams.state.Stores;
-import org.sourcestream.bbejeck.model.EntityReport;
-import org.sourcestream.bbejeck.processor.entities.EntitiesDetectionProcessor;
-import org.sourcestream.bbejeck.processor.entities.JsonDetectionReportToSystemRport;
-import org.sourcestream.bbejeck.serializer.JsonDeserializer;
-import org.sourcestream.bbejeck.serializer.JsonSerializer;
+import org.sourcestream.flow.model.EntityReport;
+import org.sourcestream.flow.processor.EntitiesDetectionProcessor;
+import org.sourcestream.flow.processor.JsonDetectionReportToSystemRport;
+import org.sourcestream.flow.serializer.JsonDeserializer;
+import org.sourcestream.flow.serializer.JsonSerializer;
 
 import org.sourcestream.entities.detectionEvent;
 import org.sourcestream.entities.category;

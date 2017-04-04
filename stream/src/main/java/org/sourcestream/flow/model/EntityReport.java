@@ -1,4 +1,4 @@
-package org.sourcestream.bbejeck.model;
+package org.sourcestream.flow.model;
 
 public class EntityReport {
 	public String id;

@@ -1,6 +1,6 @@
 package sourcestream;
 
-import org.sourcestream.bbejeck.streams.entities.EntityReportKafkaStream;
+import org.sourcestream.flow.streams.EntityReportKafkaStream;
 
 public class Main {
 

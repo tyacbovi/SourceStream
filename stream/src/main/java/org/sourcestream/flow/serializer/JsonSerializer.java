@@ -1,16 +1,10 @@
-package org.sourcestream.bbejeck.serializer;
+package org.sourcestream.flow.serializer;
 
 import com.google.gson.Gson;
 import org.apache.kafka.common.serialization.Serializer;
-
 import java.nio.charset.Charset;
 import java.util.Map;
 
-/**
- * User: Bill Bejeck
- * Date: 2/14/16
- * Time: 2:37 PM
- */
 public class JsonSerializer<T> implements Serializer<T> {
 
     private Gson gson = new Gson();

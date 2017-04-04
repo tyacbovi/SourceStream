@@ -1,8 +1,7 @@
-package org.sourcestream.bbejeck.serializer;
+package org.sourcestream.flow.serializer;
 
 import com.google.gson.Gson;
 import org.apache.kafka.common.serialization.Deserializer;
-
 import java.util.Map;
 
 public class JsonDeserializer<T> implements Deserializer<T> {

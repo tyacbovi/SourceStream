@@ -1,10 +1,9 @@
-package org.sourcestream.bbejeck.processor.entities;
+package org.sourcestream.flow.processor;
 
 import org.apache.kafka.streams.processor.Processor;
 import org.apache.kafka.streams.processor.ProcessorContext;
-import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.KeyValueStore;
-import org.sourcestream.bbejeck.model.EntityReport;
+import org.sourcestream.flow.model.EntityReport;
 import org.sourcestream.entities.detectionEvent;
 
 import java.util.Objects;
