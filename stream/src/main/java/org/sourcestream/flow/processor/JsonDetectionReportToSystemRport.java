@@ -35,7 +35,6 @@ public class JsonDetectionReportToSystemRport implements Processor<String,Entity
 		basicEntityAttributes basicEntity = basicEntityAttributes.newBuilder().setCoordinate(location)
 		.setEntityOffset(0)
 		.setIsNotTracked(false)
-		.setSourceName(value.source_name)
 		.build();
 		
 		generalEntityAttributes entity = generalEntityAttributes.newBuilder().setCategory(category.valueOf(value.category))

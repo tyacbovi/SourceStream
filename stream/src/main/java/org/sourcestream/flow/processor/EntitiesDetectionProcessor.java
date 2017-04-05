@@ -43,6 +43,7 @@ public class EntitiesDetectionProcessor implements Processor<String,EntityReport
     public void init(ProcessorContext context) {
         
         this.context = context;
+        this.context.schedule(10);
 
         state = (KeyValueStore<String, EntityReport>) context.getStateStore(sourceName + "-store");
         Objects.requireNonNull(state, "State store can't be null");

@@ -40,6 +40,7 @@ dependencies {
     compile group: 'org.apache.commons', name:'commons-lang3', version:'3.4'
     compile group: 'org.apache.kafka', name: 'kafka-clients', version: kafkaVersion
     compile group: 'org.apache.kafka', name: 'kafka-streams', version: kafkaVersion    
+    compile 'com.github.pcj:google-options:1.0.0'
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.8.1'
   	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8.1'
   	compile "org.apache.avro:avro:1.8.1"
