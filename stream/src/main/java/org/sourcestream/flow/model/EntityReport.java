@@ -13,11 +13,7 @@ public class EntityReport {
 	public String picture_url;
 	public Double height;
 	public String nickname;
-	
-	public String getId()
-	{
-		return id;
-	}
+	public Double timestamp; 
 	
 	private EntityReport(Builder builder) {
         id = builder.id;
@@ -32,6 +28,7 @@ public class EntityReport {
         picture_url = builder.picture_url;
         height = builder.height;
         nickname = builder.nickname;
+        timestamp = builder.timestamp;
     }
 
     public static Builder builder() {
@@ -52,6 +49,8 @@ public class EntityReport {
         builder.picture_url = copy.picture_url;
         builder.height = copy.height;
         builder.nickname = copy.nickname;
+        builder.timestamp = copy.timestamp;
+        
         return builder;
     }
 	
@@ -68,6 +67,7 @@ public class EntityReport {
 		private String picture_url;
 		private Double height;
 		private String nickname;
+		private Double timestamp;
 
         private Builder() {
         }
@@ -129,6 +129,11 @@ public class EntityReport {
         
         public Builder height(Double val) {
         	height = val;
+            return this;
+        }
+        
+        public Builder timestamp(Double val) {
+        	timestamp = val;
             return this;
         }
 

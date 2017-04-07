@@ -2,7 +2,6 @@ package org.sourcestream.flow.processor;
 
 import org.apache.kafka.streams.processor.Processor;
 import org.apache.kafka.streams.processor.ProcessorContext;
-import org.apache.kafka.streams.state.KeyValueStore;
 import org.sourcestream.flow.model.EntityReport;
 import org.sourcestream.entities.generalEntityAttributes;
 import org.sourcestream.entities.category;
@@ -13,17 +12,12 @@ import org.sourcestream.entities.coordinate;
 
 public class JsonDetectionReportToSystemRport implements Processor<String,EntityReport>{
 	private ProcessorContext context;
-    private KeyValueStore<String, EntityReport> state;
-    private String sourceName;
+	private ProcessorPerformamceMonitor monitor;
 	
-    public JsonDetectionReportToSystemRport(String sourceName)
-    {
-    	this.sourceName = sourceName;
-    }
-    
 	@Override
 	public void init(ProcessorContext context) {
 		this.context = context;
+		this.monitor = new ProcessorPerformamceMonitor();
 	}
 
 	@Override
@@ -52,6 +46,8 @@ public class JsonDetectionReportToSystemRport implements Processor<String,Entity
 		
 		context.forward(key, entity);
         context.commit();
+        
+        System.out.println("Data: Target external ID:" + value.id + " " + monitor.getProcessorPerformanceStatus(context.timestamp()));
 	}
 
 	@Override

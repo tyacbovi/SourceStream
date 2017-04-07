@@ -97,7 +97,7 @@ public class EntityReportKafkaStream {
 	                   () -> new EntitiesDetectionProcessor(sourceName),
 	                   "messages-source")
 	     .addProcessor("data-processor",
-				       () -> new JsonDetectionReportToSystemRport(sourceName),
+				       () -> new JsonDetectionReportToSystemRport(),
 				       "messages-source")
 	     .addStateStore(sourceEntitiesStore, "detection-processor")
 	     .addSink("creation-sink", 
