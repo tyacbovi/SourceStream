@@ -13,6 +13,11 @@
   	"name": "externalSystemID",
   	"type": "string",
   	"doc" : "external system ID"
+	},
+	{
+  	"name": "dataOffset",
+  	"type": "long",
+  	"doc" : "Data Offset"
 	}
   ]
 }
