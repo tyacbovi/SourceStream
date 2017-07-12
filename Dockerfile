@@ -3,9 +3,10 @@ FROM gradle:jdk8-alpine
 RUN mkdir -p /home/gradle/src
 WORKDIR /home/gradle/src
 
+RUN apt-get update && apt-get install -y sudo
 COPY . /home/gradle/src
-RUN rm ./generated_entities/src/main/java/org/sourcestream/entities/*.java
-RUN gradle build
+RUN sudo rm ./generated_entities/src/main/java/org/sourcestream/entities/*.java
+RUN sudo gradle build
 RUN tar -xvf build/distributions/source-stream.tar
 
 ENV KAFKA_ADDRESS "localhost:9092"
