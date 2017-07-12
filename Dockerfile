@@ -4,7 +4,8 @@ RUN mkdir -p /home/gradle/src
 WORKDIR /home/gradle/src
 
 COPY . /home/gradle/src
-RUN sudo gradle build
+RUN rm ./generated_entities/src/main/java/org/sourcestream/entities/*.java
+RUN gradle build
 RUN tar -xvf build/distributions/source-stream.tar
 
 ENV KAFKA_ADDRESS "localhost:9092"
