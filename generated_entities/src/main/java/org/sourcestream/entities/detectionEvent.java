@@ -11,13 +11,15 @@ import org.apache.avro.specific.SpecificData;
 /** This is a schema for entity detection report event */
 @org.apache.avro.specific.AvroGenerated
 public class detectionEvent extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 5145503658281396710L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"detectionEvent\",\"namespace\":\"org.sourcestream.entities\",\"doc\":\"This is a schema for entity detection report event\",\"fields\":[{\"name\":\"sourceName\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"interface name\"},{\"name\":\"externalSystemID\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"external system ID\"}]}");
+  private static final long serialVersionUID = -8156306307721202944L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"detectionEvent\",\"namespace\":\"org.sourcestream.entities\",\"doc\":\"This is a schema for entity detection report event\",\"fields\":[{\"name\":\"sourceName\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"interface name\"},{\"name\":\"externalSystemID\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"external system ID\"},{\"name\":\"dataOffset\",\"type\":\"long\",\"doc\":\"Data Offset\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   /** interface name */
   @Deprecated public java.lang.String sourceName;
   /** external system ID */
   @Deprecated public java.lang.String externalSystemID;
+  /** Data Offset */
+  @Deprecated public long dataOffset;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -30,10 +32,12 @@ public class detectionEvent extends org.apache.avro.specific.SpecificRecordBase 
    * All-args constructor.
    * @param sourceName interface name
    * @param externalSystemID external system ID
+   * @param dataOffset Data Offset
    */
-  public detectionEvent(java.lang.String sourceName, java.lang.String externalSystemID) {
+  public detectionEvent(java.lang.String sourceName, java.lang.String externalSystemID, java.lang.Long dataOffset) {
     this.sourceName = sourceName;
     this.externalSystemID = externalSystemID;
+    this.dataOffset = dataOffset;
   }
 
   public org.apache.avro.Schema getSchema() { return SCHEMA$; }
@@ -42,6 +46,7 @@ public class detectionEvent extends org.apache.avro.specific.SpecificRecordBase 
     switch (field$) {
     case 0: return sourceName;
     case 1: return externalSystemID;
+    case 2: return dataOffset;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -52,6 +57,7 @@ public class detectionEvent extends org.apache.avro.specific.SpecificRecordBase 
     switch (field$) {
     case 0: sourceName = (java.lang.String)value$; break;
     case 1: externalSystemID = (java.lang.String)value$; break;
+    case 2: dataOffset = (java.lang.Long)value$; break;
     default: throw new org.apache.avro.AvroRuntimeException("Bad index");
     }
   }
@@ -91,6 +97,23 @@ public class detectionEvent extends org.apache.avro.specific.SpecificRecordBase 
   }
 
   /**
+   * Gets the value of the 'dataOffset' field.
+   * @return Data Offset
+   */
+  public java.lang.Long getDataOffset() {
+    return dataOffset;
+  }
+
+  /**
+   * Sets the value of the 'dataOffset' field.
+   * Data Offset
+   * @param value the value to set.
+   */
+  public void setDataOffset(java.lang.Long value) {
+    this.dataOffset = value;
+  }
+
+  /**
    * Creates a new detectionEvent RecordBuilder.
    * @return A new detectionEvent RecordBuilder
    */
@@ -126,6 +149,8 @@ public class detectionEvent extends org.apache.avro.specific.SpecificRecordBase 
     private java.lang.String sourceName;
     /** external system ID */
     private java.lang.String externalSystemID;
+    /** Data Offset */
+    private long dataOffset;
 
     /** Creates a new Builder */
     private Builder() {
@@ -146,6 +171,10 @@ public class detectionEvent extends org.apache.avro.specific.SpecificRecordBase 
         this.externalSystemID = data().deepCopy(fields()[1].schema(), other.externalSystemID);
         fieldSetFlags()[1] = true;
       }
+      if (isValidValue(fields()[2], other.dataOffset)) {
+        this.dataOffset = data().deepCopy(fields()[2].schema(), other.dataOffset);
+        fieldSetFlags()[2] = true;
+      }
     }
 
     /**
@@ -161,6 +190,10 @@ public class detectionEvent extends org.apache.avro.specific.SpecificRecordBase 
       if (isValidValue(fields()[1], other.externalSystemID)) {
         this.externalSystemID = data().deepCopy(fields()[1].schema(), other.externalSystemID);
         fieldSetFlags()[1] = true;
+      }
+      if (isValidValue(fields()[2], other.dataOffset)) {
+        this.dataOffset = data().deepCopy(fields()[2].schema(), other.dataOffset);
+        fieldSetFlags()[2] = true;
       }
     }
 
@@ -250,12 +283,55 @@ public class detectionEvent extends org.apache.avro.specific.SpecificRecordBase 
       return this;
     }
 
+    /**
+      * Gets the value of the 'dataOffset' field.
+      * Data Offset
+      * @return The value.
+      */
+    public java.lang.Long getDataOffset() {
+      return dataOffset;
+    }
+
+    /**
+      * Sets the value of the 'dataOffset' field.
+      * Data Offset
+      * @param value The value of 'dataOffset'.
+      * @return This builder.
+      */
+    public org.sourcestream.entities.detectionEvent.Builder setDataOffset(long value) {
+      validate(fields()[2], value);
+      this.dataOffset = value;
+      fieldSetFlags()[2] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'dataOffset' field has been set.
+      * Data Offset
+      * @return True if the 'dataOffset' field has been set, false otherwise.
+      */
+    public boolean hasDataOffset() {
+      return fieldSetFlags()[2];
+    }
+
+
+    /**
+      * Clears the value of the 'dataOffset' field.
+      * Data Offset
+      * @return This builder.
+      */
+    public org.sourcestream.entities.detectionEvent.Builder clearDataOffset() {
+      fieldSetFlags()[2] = false;
+      return this;
+    }
+
     @Override
     public detectionEvent build() {
       try {
         detectionEvent record = new detectionEvent();
         record.sourceName = fieldSetFlags()[0] ? this.sourceName : (java.lang.String) defaultValue(fields()[0]);
         record.externalSystemID = fieldSetFlags()[1] ? this.externalSystemID : (java.lang.String) defaultValue(fields()[1]);
+        record.dataOffset = fieldSetFlags()[2] ? this.dataOffset : (java.lang.Long) defaultValue(fields()[2]);
         return record;
       } catch (Exception e) {
         throw new org.apache.avro.AvroRuntimeException(e);
