@@ -1,4 +1,4 @@
-FROM openjdk:8-alpine
+FROM gradle:jdk8-alpine
 
 RUN mkdir -p /home/gradle/src
 WORKDIR /home/gradle/src
