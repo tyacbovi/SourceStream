@@ -3,7 +3,8 @@ FROM gradle:jdk8-alpine
 RUN mkdir -p /home/gradle/src
 WORKDIR /home/gradle/src
 
-RUN apt-get update && apt-get install -y sudo
+RUN apk update
+RUN apk add sudo
 COPY . /home/gradle/src
 RUN sudo rm ./generated_entities/src/main/java/org/sourcestream/entities/*.java
 RUN sudo gradle build
