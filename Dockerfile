@@ -4,7 +4,7 @@ RUN mkdir -p /home/gradle/src
 WORKDIR /home/gradle/src
 
 COPY . /home/gradle/src
-RUN gradle build
+RUN sudo gradle build
 RUN tar -xvf build/distributions/source-stream.tar
 
 ENV KAFKA_ADDRESS "localhost:9092"
