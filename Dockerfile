@@ -1,11 +1,14 @@
-FROM openjdk:8-alpine
+FROM gradle:jdk8-alpine
 
-WORKDIR /usr/local/
+RUN mkdir -p /home/gradle/src
+WORKDIR /home/gradle/src
 
-ADD https://github.com/tyacbovi/SourceStream/releases/download/0.11/source-stream.tar .
-RUN tar -xvf source-stream.tar
+COPY . /home/gradle/src
+RUN gradle clean
+RUN gradle build --stacktrace
+RUN tar -xvf build/distributions/source-stream.tar
 
 ENV KAFKA_ADDRESS "localhost:9092"
 
-WORKDIR /usr/local/source-stream/lib/
-CMD java -cp "*" sourcestream.Main
+WORKDIR /home/gradle/src/source-stream/lib/
+CMD java $JAVA_OPTIONS -cp "*" sourcestream.Main
