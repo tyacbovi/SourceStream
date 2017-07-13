@@ -50,6 +50,6 @@ dependencies {
 }
 
 task bootRunAll(dependsOn: [
-        ':generated_entities:bootRun',
+     /*   ':generated_entities:bootRun', */
         ':stream:bootRun'
 ]) {}
