@@ -1,3 +1,4 @@
+/*
 plugins {
     id 'com.commercehub.gradle.plugin.avro' version '0.9.0'
 }
@@ -15,4 +16,4 @@ compileJava.dependsOn(generateAvro)
 
 dependencies {
     compile("org.apache.avro:avro")
-}
+}*/
