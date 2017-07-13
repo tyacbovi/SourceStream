@@ -1,4 +1,3 @@
 rootProject.name = 'source-stream'
 
-include 'generated_entities'
 include 'stream'
