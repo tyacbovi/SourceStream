@@ -1,0 +1,20 @@
+/*
+plugins {
+    id 'com.commercehub.gradle.plugin.avro' version '0.9.0'
+}
+
+task generateAvro(type: com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
+    source("src/resources/avro")
+    outputDir = file("src/main/java")
+    doLast {
+    fileTree(generateAvro.outputDir).visit {it.directory || ext.dependencySources.add(it.relativePath.pathString)}
+  }
+}
+
+generateAvro.ext.dependencySources = []
+compileJava.dependsOn(generateAvro)
+
+dependencies {
+    compile("org.apache.avro:avro")
+}
+*/
